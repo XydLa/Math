@@ -1,4 +1,5 @@
-import { TEAMS, listenToScores, callFunction, showMessage } from "./shared.js";
+import { doc, getDoc, setDoc, serverTimestamp } from "https://www.gstatic.com/firebasejs/11.0.2/firebase-firestore.js";
+import { db, TEAMS, listenToScores, showMessage } from "./shared.js";
 
 const teamPicker = document.querySelector("#team-picker");
 const answerGrid = document.querySelector("#answer-grid");
@@ -97,13 +98,42 @@ submitButton.addEventListener("click", async () => {
   updateSubmitState();
   submitButton.textContent = "Submitting…";
   try {
-    await callFunction("submit", { teamId: selectedTeam, answers });
+    const configSnap = await getDoc(doc(db, "private", "config"));
+    if (!configSnap.exists()) {
+      throw new Error("The teacher has not saved an answer key yet.");
+    }
+
+    const { answers: correctAnswers, points, maxScore } = configSnap.data();
+    let score = 0;
+    for (let i = 0; i < 10; i++) {
+      if (answers[i] === correctAnswers[i]) {
+        score += Number(points[i] || 0);
+      }
+    }
+
+    const team = TEAMS.find(item => item.id === selectedTeam);
+    await setDoc(doc(db, "submissions", selectedTeam), {
+      teamId: selectedTeam,
+      answers,
+      score,
+      submittedAt: serverTimestamp()
+    });
+
+    await setDoc(doc(db, "publicScores", selectedTeam), {
+      teamId: selectedTeam,
+      teamName: team.name,
+      score,
+      maxScore,
+      submitted: true,
+      updatedAt: serverTimestamp()
+    });
+
     showMessage(message, "Submission received! Your team's answers are locked.", "success");
     teamStatus.textContent = "Submission complete.";
     answerGrid.querySelectorAll("button").forEach(button => button.disabled = true);
     teamPicker.querySelectorAll("button").forEach(button => button.disabled = true);
   } catch (error) {
-    showMessage(message, error.message, "error");
+    showMessage(message, `Submission failed: ${error.message}`, "error");
   } finally {
     submitting = false;
     submitButton.textContent = "Submit answers";

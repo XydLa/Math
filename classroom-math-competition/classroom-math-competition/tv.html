@@ -1,0 +1,31 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="theme-color" content="#080d18">
+  <title>Live Team Leaderboard</title>
+  <link rel="stylesheet" href="/styles.css">
+</head>
+<body class="tv-page">
+  <main class="tv-shell">
+    <header class="tv-header">
+      <div>
+        <div class="eyebrow">CLASSROOM MATH CHALLENGE</div>
+        <h1>Team Leaderboard</h1>
+        <p id="live-status">Waiting for teams…</p>
+      </div>
+      <button id="reveal-btn" class="reveal-button" aria-pressed="false">
+        <span class="reveal-icon">◉</span> Reveal scores
+      </button>
+    </header>
+
+    <section id="leaderboard" class="leaderboard" aria-live="polite"></section>
+    <footer class="tv-footer">
+      <span><i class="live-dot"></i> LIVE SCORE UPDATES</span>
+      <span id="submission-count">0 / 4 TEAMS SUBMITTED</span>
+    </footer>
+  </main>
+  <script type="module" src="/tv.js"></script>
+</body>
+</html>

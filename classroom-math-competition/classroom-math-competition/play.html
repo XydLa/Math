@@ -1,0 +1,46 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="theme-color" content="#101827">
+  <title>Team Answer Sheet</title>
+  <link rel="stylesheet" href="/styles.css">
+</head>
+<body class="student-page">
+  <main class="student-shell">
+    <header class="page-header">
+      <div class="eyebrow">CLASSROOM MATH CHALLENGE</div>
+      <h1>Answer Sheet</h1>
+      <p>Choose your team, enter your answers, and submit once.</p>
+    </header>
+
+    <section class="panel">
+      <h2>1. Choose your team</h2>
+      <div id="team-picker" class="team-picker">
+        <button class="team-choice red" data-team="red">Red</button>
+        <button class="team-choice blue" data-team="blue">Blue</button>
+        <button class="team-choice green" data-team="green">Green</button>
+        <button class="team-choice yellow" data-team="yellow">Yellow</button>
+      </div>
+      <p id="team-status" class="muted small">Select your team's color.</p>
+    </section>
+
+    <section class="panel">
+      <div class="section-heading">
+        <div>
+          <h2>2. Enter your answers</h2>
+          <p class="muted small">Select one answer for each question.</p>
+        </div>
+        <span class="question-count">10 QUESTIONS</span>
+      </div>
+      <div id="answer-grid" class="answer-grid"></div>
+    </section>
+
+    <button id="submit-btn" class="primary-button" disabled>Submit answers</button>
+    <div id="message" class="message" role="status" aria-live="polite"></div>
+    <p class="footer-note">Double-check your answers. Each team can submit only once.</p>
+  </main>
+  <script type="module" src="/play.js"></script>
+</body>
+</html>

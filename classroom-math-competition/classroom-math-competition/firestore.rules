@@ -1,0 +1,16 @@
+rules_version = '2';
+
+service cloud.firestore {
+  match /databases/{database}/documents {
+    // Browser clients may only read the public leaderboard.
+    // All writes and all answer-key/submission reads go through Netlify Functions.
+    match /publicScores/{teamId} {
+      allow read: if true;
+      allow write: if false;
+    }
+
+    match /{document=**} {
+      allow read, write: if false;
+    }
+  }
+}

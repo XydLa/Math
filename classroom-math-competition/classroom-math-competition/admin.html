@@ -1,0 +1,43 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="theme-color" content="#101827">
+  <title>Teacher Setup</title>
+  <link rel="stylesheet" href="/styles.css">
+</head>
+<body class="admin-page">
+  <main class="admin-shell">
+    <header class="page-header">
+      <div class="eyebrow">TEACHER CONTROL PANEL</div>
+      <h1>Competition Setup</h1>
+      <p>Set the answer key and points for each question.</p>
+    </header>
+
+    <section class="panel">
+      <h2>Teacher password</h2>
+      <label class="field-label" for="admin-password">Admin password</label>
+      <input id="admin-password" type="password" autocomplete="current-password" placeholder="Enter teacher password">
+      <p class="muted small">The password is checked by the server and is not saved in this browser.</p>
+    </section>
+
+    <section class="panel">
+      <div class="section-heading">
+        <div>
+          <h2>Answer key</h2>
+          <p class="muted small">Choose the correct option and point value.</p>
+        </div>
+        <span class="question-count">10 QUESTIONS</span>
+      </div>
+      <div id="key-list" class="key-list"></div>
+      <div class="admin-total">Maximum possible score <strong id="max-score">10 points</strong></div>
+    </section>
+
+    <button id="save-btn" class="primary-button">Save answer key &amp; reset teams</button>
+    <div id="message" class="message" role="status" aria-live="polite"></div>
+    <p class="warning-note">Saving a new answer key clears all previous submissions and scores for a new round.</p>
+  </main>
+  <script type="module" src="/admin.js"></script>
+</body>
+</html>

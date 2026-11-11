@@ -1,0 +1,9 @@
+{
+  "name": "classroom-math-competition",
+  "version": "1.0.0",
+  "private": true,
+  "description": "A four-team classroom math competition app",
+  "dependencies": {
+    "firebase-admin": "^13.0.0"
+  }
+}

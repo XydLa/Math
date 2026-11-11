@@ -18,7 +18,12 @@
 
       <div style="display: flex; align-items: center; gap: 20px; flex-wrap: wrap;">
         <div style="display: flex; align-items: center; gap: 14px; background: rgba(255, 255, 255, 0.06); padding: 10px 16px; border-radius: 14px; border: 1px solid rgba(255, 255, 255, 0.14);">
-          <div id="tv-qrcode" style="width: 92px; height: 92px; border-radius: 8px; background: #ffffff; padding: 6px; display: flex; align-items: center; justify-content: center;"></div>
+          <div style="width: 96px; height: 96px; border-radius: 8px; background: #ffffff; padding: 6px; display: flex; align-items: center; justify-content: center;">
+            <svg xmlns="http://w3.org" viewBox="0 0 29 29" shape-rendering="crispEdges" style="width: 100%; height: 100%; display: block;">
+              <rect width="29" height="29" fill="#ffffff"/>
+              <path fill="#080d18" d="M0 0h7v7H0zm1 1v5h5V1zm1 1h3v3H2zm20-2h7v7h-7zm1 1v5h5V1zm1 1h3v3h-3zM0 22h7v7H0zm1 1v5h5v-5zm1 1h3v3H2zM8 0h2v1H8zm4 0h1v2h-1zm2 0h2v1h-2zm3 0h1v3h-1zm2 0h2v1h-2zM9 2h2v2H9zm5 1h2v1h-2zm6 0h1v2h-1zM8 4h1v2H8zm3 1h3v1h-3zm5 0h2v2h-2zM9 6h1v1H9zm3 0h1v1h-1zm2 0h1v1h-1zm4 1h2v1h-2zM1 8h2v1H1zm4 0h2v2H5zm3 0h2v1H8zm3 0h1v3h-1zm3 0h3v1h-3zm5 0h1v2h-1zm3 0h3v1h-3zm4 0h2v2h-2zM0 9h1v2H0zm2 1h2v2H2zm6 0h2v1H8zm5 0h2v2h-2zm4 0h2v1h-2zm4 0h2v2h-2zm5 1h1v2h-1zM1 12h1v2H1zm3 0h3v1H4zm5 0h2v2H9zm3 0h1v1h-1zm3 0h2v2h-2zm4 0h1v1h-1zm3 0h3v1h-3zM0 14h1v3H0zm2 0h2v1H2zm5 0h1v2H7zm4 0h3v1h-3zm6 0h2v1h-2zm4 0h1v3h-1zm3 0h2v2h-2zm3 0h2v1h-2zM2 16h3v1H2zm7 0h2v2H9zm4 0h2v1h-2zm3 0h3v2h-3zm9 0h3v1h-3zM1 18h1v2H1zm3 0h2v1H4zm3 0h1v3H7zm5 0h2v2h-2zm4 0h1v2h-1zm3 0h3v1h-3zm4 0h2v2h-2zm4 0h1v3h-1zM0 20h1v1H0zm2 0h3v1H2zm6 0h2v1H8zm3 0h1v1h-1zm4 0h1v2h-1zm3 0h2v1h-2zm4 0h1v1h-1zm3 0h2v1h-2zM8 22h2v2H8zm3 0h3v1h-3zm5 0h2v2h-2zm4 0h3v1h-3zm4 0h2v2h-2zm4 0h1v3h-1zM10 24h2v2h-2zm3 0h2v1h-2zm5 0h2v2h-2zm3 0h2v1h-2zm4 0h2v2h-2zM8 26h1v3H8zm4 0h2v2h-2zm3 0h2v1h-2zm4 0h1v3h-1zm2 0h3v1h-3zm5 1h2v2h-2zM10 28h2v1h-2zm5 0h3v1h-3zm6 0h3v1h-3z"/>
+            </svg>
+          </div>
           <div>
             <div style="font-size: 0.72rem; font-weight: 700; letter-spacing: 0.1em; text-transform: uppercase; color: #94a3b8;">УНШУУЛЖ НЭГДЭХ</div>
             <div style="font-size: 1rem; font-weight: 700; color: #f8fafc; margin-top: 2px;">btukmath.netlify.app/play</div>
@@ -38,22 +43,6 @@
       <span id="submission-count">0 / 4 БАГ ИЛГЭЭСЭН</span>
     </footer>
   </main>
-
-  <script type="module">
-    import qrcode from "https://esm.sh";
-    const qr = qrcode(0, "M");
-    qr.addData("https://netlify.app");
-    qr.make();
-    const svg = qr.createSvgTag({ cellSize: 3, margin: 0 });
-    const container = document.getElementById("tv-qrcode");
-    container.innerHTML = svg;
-    const svgEl = container.querySelector("svg");
-    if (svgEl) {
-      svgEl.style.width = "100%";
-      svgEl.style.height = "100%";
-      svgEl.style.display = "block";
-    }
-  </script>
   <script type="module" src="/tv.js"></script>
 </body>
 </html>

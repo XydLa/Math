@@ -1,4 +1,7 @@
-import { callFunction, showMessage } from "./shared.js";
+import { doc, setDoc, deleteDoc, serverTimestamp } from "https://www.gstatic.com/firebasejs/11.0.2/firebase-firestore.js";
+import { db, TEAMS, showMessage } from "./shared.js";
+
+const TEACHER_PASSWORD = "math2026"; // Change this to whatever teacher password you want!
 
 const keyList = document.querySelector("#key-list");
 const passwordInput = document.querySelector("#admin-password");
@@ -36,6 +39,10 @@ saveButton.addEventListener("click", async () => {
     showMessage(message, "Enter the teacher password first.", "error");
     return;
   }
+  if (password !== TEACHER_PASSWORD) {
+    showMessage(message, "Incorrect teacher password.", "error");
+    return;
+  }
 
   const answers = [];
   const points = [];
@@ -54,14 +61,34 @@ saveButton.addEventListener("click", async () => {
     points.push(pointValue);
   }
 
+  const maxScore = points.reduce((sum, value) => sum + value, 0);
+
   saveButton.disabled = true;
   saveButton.textContent = "Saving…";
   try {
-    const result = await callFunction("setup", { password, answers, points });
-    showMessage(message, `Answer key saved. All teams have been reset. Maximum score: ${result.maxScore} points.`, "success");
+    await setDoc(doc(db, "private", "config"), {
+      answers,
+      points,
+      maxScore,
+      updatedAt: serverTimestamp()
+    });
+
+    for (const team of TEAMS) {
+      await deleteDoc(doc(db, "submissions", team.id));
+      await setDoc(doc(db, "publicScores", team.id), {
+        teamId: team.id,
+        teamName: team.name,
+        score: 0,
+        maxScore,
+        submitted: false,
+        updatedAt: serverTimestamp()
+      });
+    }
+
+    showMessage(message, `Answer key saved. All teams have been reset. Maximum score: ${maxScore} points.`, "success");
     passwordInput.value = "";
   } catch (error) {
-    showMessage(message, error.message, "error");
+    showMessage(message, `Save failed: ${error.message}`, "error");
   } finally {
     saveButton.disabled = false;
     saveButton.textContent = "Save answer key & reset teams";
